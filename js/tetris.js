@@ -103,6 +103,7 @@ function placeTetromino() {
 // Muestra la pantalla de final de juego
 // Mejorar implementación input text
 function showGameOver() {
+    //@see https://developer.mozilla.org/en-US/docs/Web/API/Window/cancelAnimationFrame
     cancelAnimationFrame(rAF);
     gameOver = true;
 
@@ -220,6 +221,7 @@ let gameOver = false;
 
 // bucle de juego
 function loop() {
+    //@see https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame#examples
     rAF = requestAnimationFrame(loop);
     context.clearRect(0,0,canvas.width,canvas.height);
 
@@ -257,7 +259,7 @@ function loop() {
             for (let col = 0; col < tetromino.matrix[row].length; col++) {
                 if (tetromino.matrix[row][col]) {
 
-                    // Crea 1px más pequeño que la cuadricula para crear un efecto de cuadrícula
+                    // Crea el tablero 1px más pequeño que la cuadricula para crear el efecto de cuadrícula
                     context.fillRect((tetromino.col + col) * grid, (tetromino.row + row) * grid, grid-1, grid-1);
                 }
             }
