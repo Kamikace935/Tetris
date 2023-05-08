@@ -47,3 +47,14 @@ p {
 details {
     color: white;
 }
+
+table {
+    border: solid;
+    border-color: white;
+}
+
+
+tr{
+    border: solid;
+    border-color: white;
+}

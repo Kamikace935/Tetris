@@ -119,33 +119,33 @@ function showGameOver() {
 
 
 
-    context.fillStyle = 'grey';
-    context.globalAlpha = 0.85;
-    context.fillRect(0, canvas.height / 2 - 32, canvas.width, 90);
+    contextPlayfield.fillStyle = 'grey';
+    contextPlayfield.globalAlpha = 0.85;
+    contextPlayfield.fillRect(0, canvas.height / 2 - 32, canvas.width, 90);
 
-    context.globalAlpha = 1;
-    context.fillStyle = 'white';
-    context.font = '36px monospace';
-    context.textAlign = 'center';
-    context.textBaseline = 'middle';
-    context.fillText('GAME OVER', canvas.width / 2, canvas.height / 2);
-    context.font = "20px monospace";
-    context.fillText('Nickname:', canvas.width / 2 - 60, canvas.height / 2 + 35);
+    contextPlayfield.globalAlpha = 1;
+    contextPlayfield.fillStyle = 'white';
+    contextPlayfield.font = '36px monospace';
+    contextPlayfield.textAlign = 'center';
+    contextPlayfield.textBaseline = 'middle';
+    contextPlayfield.fillText('GAME OVER', canvas.width / 2, canvas.height / 2);
+    contextPlayfield.font = "20px monospace";
+    contextPlayfield.fillText('Nickname:', canvas.width / 2 - 60, canvas.height / 2 + 35);
 
-    let imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+    let imageData = contextPlayfield.getImageData(0, 0, canvas.width, canvas.height);
 
     input.addEventListener("input", () => {
-        context.putImageData(imageData, 0,0);
-        context.fillStyle = 'white';
-        context.font = "25px monospace";
+        contextPlayfield.putImageData(imageData, 0,0);
+        contextPlayfield.fillStyle = 'white';
+        contextPlayfield.font = "25px monospace";
 
-        context.fillText(input.value.toUpperCase(), canvas.width / 2 + 15, canvas.height / 2 + 35);
+        contextPlayfield.fillText(input.value.toUpperCase(), canvas.width / 2 + 15, canvas.height / 2 + 35);
     });
 }
 
 const canvas = document.getElementById('game');
 // @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/getContext
-const context = canvas.getContext('2d');
+const contextPlayfield = canvas.getContext('2d');
 const input = document.createElement("input");
 const grid = 32;
 const tetrominoSequence = [];
@@ -223,17 +223,17 @@ let gameOver = false;
 function loop() {
     //@see https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame#examples
     rAF = requestAnimationFrame(loop);
-    context.clearRect(0,0,canvas.width,canvas.height);
+    contextPlayfield.clearRect(0,0,canvas.width,canvas.height);
 
     // Crea el tablero
     for (let row = 0; row < 20; row++) {
         for (let col = 0; col < 10; col++) {
             if (playfield[row][col]) {
                 const name = playfield[row][col];
-                context.fillStyle = colors[name];
+                contextPlayfield.fillStyle = colors[name];
 
                 // Crea 1px más pequeño que la cuadricula para crear un efecto de cuadrícula
-                context.fillRect(col * grid, row * grid, grid-1, grid-1);
+                contextPlayfield.fillRect(col * grid, row * grid, grid-1, grid-1);
             }
         }
     }
@@ -253,14 +253,14 @@ function loop() {
             }
         }
 
-        context.fillStyle = colors[tetromino.name];
+        contextPlayfield.fillStyle = colors[tetromino.name];
 
         for (let row = 0; row < tetromino.matrix.length; row++) {
             for (let col = 0; col < tetromino.matrix[row].length; col++) {
                 if (tetromino.matrix[row][col]) {
 
                     // Crea el tablero 1px más pequeño que la cuadricula para crear el efecto de cuadrícula
-                    context.fillRect((tetromino.col + col) * grid, (tetromino.row + row) * grid, grid-1, grid-1);
+                    contextPlayfield.fillRect((tetromino.col + col) * grid, (tetromino.row + row) * grid, grid-1, grid-1);
                 }
             }
         }
