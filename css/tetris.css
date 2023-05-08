@@ -49,12 +49,18 @@ details {
 }
 
 table {
-    border: solid;
-    border-color: white;
+
+    border-collapse: collapse;
+    border: 3px solid purple;
 }
 
-
-tr{
-    border: solid;
-    border-color: white;
+th,
+td {
+    padding: 8px;
+    border: 1px solid purple;
 }
+
+.position {
+
+}
+

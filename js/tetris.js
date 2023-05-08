@@ -111,41 +111,41 @@ function showGameOver() {
     input.maxLength = 3;
     input.placeholder = "Escribe algo";
     input.style.position = "absolute";
-    input.style.left = canvas.offsetLeft + "px";
-    input.style.top = canvas.offsetTop + "px";
+    input.style.left = canvasPlayfield.offsetLeft + "px";
+    input.style.top = canvasPlayfield.offsetTop + "px";
     input.opacity = 0;
-    canvas.parentNode.appendChild(input);
+    canvasPlayfield.parentNode.appendChild(input);
     input.focus();
 
 
 
     contextPlayfield.fillStyle = 'grey';
     contextPlayfield.globalAlpha = 0.85;
-    contextPlayfield.fillRect(0, canvas.height / 2 - 32, canvas.width, 90);
+    contextPlayfield.fillRect(0, canvasPlayfield.height / 2 - 32, canvasPlayfield.width, 90);
 
     contextPlayfield.globalAlpha = 1;
     contextPlayfield.fillStyle = 'white';
     contextPlayfield.font = '36px monospace';
     contextPlayfield.textAlign = 'center';
     contextPlayfield.textBaseline = 'middle';
-    contextPlayfield.fillText('GAME OVER', canvas.width / 2, canvas.height / 2);
+    contextPlayfield.fillText('GAME OVER', canvasPlayfield.width / 2, canvasPlayfield.height / 2);
     contextPlayfield.font = "20px monospace";
-    contextPlayfield.fillText('Nickname:', canvas.width / 2 - 60, canvas.height / 2 + 35);
+    contextPlayfield.fillText('Nickname:', canvasPlayfield.width / 2 - 60, canvasPlayfield.height / 2 + 35);
 
-    let imageData = contextPlayfield.getImageData(0, 0, canvas.width, canvas.height);
+    let imageData = contextPlayfield.getImageData(0, 0, canvasPlayfield.width, canvasPlayfield.height);
 
     input.addEventListener("input", () => {
         contextPlayfield.putImageData(imageData, 0,0);
         contextPlayfield.fillStyle = 'white';
         contextPlayfield.font = "25px monospace";
 
-        contextPlayfield.fillText(input.value.toUpperCase(), canvas.width / 2 + 15, canvas.height / 2 + 35);
+        contextPlayfield.fillText(input.value.toUpperCase(), canvasPlayfield.width / 2 + 15, canvasPlayfield.height / 2 + 35);
     });
 }
 
-const canvas = document.getElementById('game');
+const canvasPlayfield = document.getElementById('game');
 // @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/getContext
-const contextPlayfield = canvas.getContext('2d');
+const contextPlayfield = canvasPlayfield.getContext('2d');
 const input = document.createElement("input");
 const grid = 32;
 const tetrominoSequence = [];
@@ -223,7 +223,7 @@ let gameOver = false;
 function loop() {
     //@see https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame#examples
     rAF = requestAnimationFrame(loop);
-    contextPlayfield.clearRect(0,0,canvas.width,canvas.height);
+    contextPlayfield.clearRect(0,0,canvasPlayfield.width,canvasPlayfield.height);
 
     // Crea el tablero
     for (let row = 0; row < 20; row++) {
