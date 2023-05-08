@@ -84,12 +84,15 @@ function placeTetromino() {
     // Comprueba las líneas que puede eliminar desde el fondo hasta la parte de arriba
     for (let row = playfield.length - 1; row >= 0; ) {
         if (playfield[row].every(cell => !!cell)) {
+        //Añadir contador de líneas eliminadas
 
             // Elimina cada fila por encima de esta
             for (let r = row; r >= 0; r--) {
                 for (let c = 0; c < playfield[r].length; c++) {
                     playfield[r][c] = playfield[r-1][c];
                 }
+            //Método que pinta los puntos y otro que añada tiempo al cronómetro
+
             }
         }
         else {
@@ -105,6 +108,8 @@ function placeTetromino() {
 function showGameOver() {
     //@see https://developer.mozilla.org/en-US/docs/Web/API/Window/cancelAnimationFrame
     cancelAnimationFrame(rAF);
+    //Matar temporizador
+
     gameOver = true;
 
     input.type = "text";
@@ -141,11 +146,18 @@ function showGameOver() {
 
         contextPlayfield.fillText(input.value.toUpperCase(), canvasPlayfield.width / 2 + 15, canvasPlayfield.height / 2 + 35);
     });
+
+    //Añadir eventListener en el documento para que se guarde el resultado con un intro
 }
 
 const canvasPlayfield = document.getElementById('game');
+//const canvasTimer = document.getElementById("counter");
+//const canvasBoard = document.getElementById("score");
+
 // @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/getContext
 const contextPlayfield = canvasPlayfield.getContext('2d');
+//const contextTimer = canvasTimer.getContext('2d');
+//const contextBoard = canvasBoard.getContext('2d');
 const input = document.createElement("input");
 const grid = 32;
 const tetrominoSequence = [];
@@ -307,3 +319,4 @@ document.addEventListener('keydown', function(e) {
 
 // Inicia el Juego
 rAF = requestAnimationFrame(loop);
+//Iniciar cronómetro y puntuación a 0
