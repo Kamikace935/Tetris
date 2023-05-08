@@ -39,3 +39,11 @@ div{
 input {
     opacity: 0;
 }
+
+p {
+    color: white;
+}
+
+details {
+    color: white;
+}
