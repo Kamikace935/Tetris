@@ -1,4 +1,17 @@
+// Recoge el parámetro recibido con el get en la URL
+const searchParams = new URLSearchParams(window.location.search);
+const difficulty = parseInt(searchParams.get("difficulty") || 0,10);
+
+// Contiene los parametros de las diferentes dificultades
+const difficulties = [
+    [35, 15, 8],
+    [120, 90, 60]
+]
+
 // https://tetris.fandom.com/wiki/Tetris_Guideline
+let frames = difficulties[0][difficulty];
+let score = 0;
+let time = difficulties[1][difficulty];
 
 // Genera una nueva secuencia de tetrominó
 // @see https://tetris.fandom.com/wiki/Random_Generator
@@ -81,11 +94,10 @@ function placeTetromino() {
         }
     }
 
+    let count = 0;
     // Comprueba las líneas que puede eliminar desde el fondo hasta la parte de arriba
     for (let row = playfield.length - 1; row >= 0; ) {
         if (playfield[row].every(cell => !!cell)) {
-        //Añadir contador de líneas eliminadas
-
             // Elimina cada fila por encima de esta
             for (let r = row; r >= 0; r--) {
                 for (let c = 0; c < playfield[r].length; c++) {
@@ -94,35 +106,40 @@ function placeTetromino() {
             //Método que pinta los puntos y otro que añada tiempo al cronómetro
 
             }
-        }
-        else {
+            count++;
+        } else {
             row--;
         }
     }
+
+    increaseMarkerAndTime(count);
+
     //colocar variable para la siguiente ficha
     tetromino = getNextTetromino();
 }
+
+
+
 
 // Muestra la pantalla de final de juego
 // Mejorar implementación input text
 function showGameOver() {
     //@see https://developer.mozilla.org/en-US/docs/Web/API/Window/cancelAnimationFrame
     cancelAnimationFrame(rAF);
-    //Matar temporizador
+    //@see https://developer.mozilla.org/en-US/docs/Web/API/clearInterval
+    clearInterval(timer);
 
     gameOver = true;
 
     input.type = "text";
     input.maxLength = 3;
-    input.placeholder = "Escribe algo";
+    input.placeholder = "Type something";
     input.style.position = "absolute";
     input.style.left = canvasPlayfield.offsetLeft + "px";
     input.style.top = canvasPlayfield.offsetTop + "px";
     input.opacity = 0;
     canvasPlayfield.parentNode.appendChild(input);
     input.focus();
-
-
 
     contextPlayfield.fillStyle = 'grey';
     contextPlayfield.globalAlpha = 0.85;
@@ -147,17 +164,42 @@ function showGameOver() {
         contextPlayfield.fillText(input.value.toUpperCase(), canvasPlayfield.width / 2 + 15, canvasPlayfield.height / 2 + 35);
     });
 
-    //Añadir eventListener en el documento para que se guarde el resultado con un intro
+    // Añadir eventListener en el documento para que guarde el resultado con un intro
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+            let ranking = JSON.parse(localStorage.getItem('Ranking')) || [];
+            ranking.push(getScore());
+            localStorage.setItem('Ranking', JSON.stringify(ranking));
+            window.location.href = "index.html";
+        }
+    })
+}
+
+// Recoge toda la información de la partida del jugador y la devuelve como un objeto
+function getScore() {
+    let nick
+    if (input.value === "") {
+        nick = "Unknonw";
+    }else  {
+        nick = input.value.toUpperCase();
+    }
+
+    return {
+        nick: nick,
+        score: score,
+        time: formatTime(time),
+        difficulty: difficulty
+    }
 }
 
 const canvasPlayfield = document.getElementById('game');
-//const canvasTimer = document.getElementById("counter");
-//const canvasBoard = document.getElementById("score");
+const canvasTimer = document.getElementById("timer");
+const canvasScore = document.getElementById("score");
 
 // @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/getContext
 const contextPlayfield = canvasPlayfield.getContext('2d');
-//const contextTimer = canvasTimer.getContext('2d');
-//const contextBoard = canvasBoard.getContext('2d');
+const contextTimer = canvasTimer.getContext('2d');
+const contextScore = canvasScore.getContext('2d');
 const input = document.createElement("input");
 const grid = 32;
 const tetrominoSequence = [];
@@ -231,6 +273,25 @@ let tetromino = getNextTetromino();
 let rAF = null;  // Mantiene un seguimiento de los frames de animación para poder cancelarlo
 let gameOver = false;
 
+// Aumenta los puntos y el tiempo restante por las líneas eliminadas
+function increaseMarkerAndTime(lines) {
+    const points = [40,100,300,1200];
+    const extraTime = [10,15,20,30];
+
+    if (lines > 0) {
+        score += (points[lines-1] * (difficulty + 1));
+        time += extraTime[lines-1];
+    }
+
+    contextScore.clearRect(0,0,canvasScore.width,canvasScore.height);
+    contextScore.globalAlpha = 1;
+    contextScore.fillStyle = 'white';
+    contextScore.font = '25px monospace';
+    contextScore.textAlign = 'center';
+    contextScore.textBaseline = 'middle';
+    contextScore.fillText(score, canvasScore.width / 2, canvasScore.height / 2);
+}
+
 // bucle de juego
 function loop() {
     //@see https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame#examples
@@ -254,7 +315,7 @@ function loop() {
     if (tetromino) {
 
         // El tetromino cae cada 35 Frames
-        if (++count > 35) {
+        if (++count > frames) {
             tetromino.row++;
             count = 0;
 
@@ -317,6 +378,46 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
+function formatTime(seconds) {
+    // Calcula las horas, los minutos y los segundos restantes de los segundos dados
+    let hours = Math.floor(seconds / 3600);
+    let minutes = Math.floor((seconds % 36000) / 60);
+    let remainingSeconds = seconds % 60;
+
+    //@see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart
+    // Otorga formato a los digitos para que siempre se vean en dos digitos
+    let formattedHours = hours.toString().padStart(2, '0');
+    let formattedMinutes = minutes.toString().padStart(2, '0');
+    let formattedSeconds = remainingSeconds.toString().padStart(2, '0');
+
+    return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+}
+
+//Crea la cuenta atras
+function countDown() {
+    time --;
+    let timer = formatTime(time);
+
+    contextTimer.clearRect(0,0,canvasTimer.width,canvasTimer.height);
+    contextTimer.globalAlpha = 1;
+    contextTimer.fillStyle = 'white';
+    contextTimer.font = '25px monospace';
+    contextTimer.textAlign = 'center';
+    contextTimer.textBaseline = 'middle';
+    contextTimer.fillText(timer, canvasTimer.width / 2, canvasTimer.height / 2);
+
+    if (time === 0) {
+        showGameOver()
+    }
+}
+
+//@see https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
 // Inicia el Juego
 rAF = requestAnimationFrame(loop);
-//Iniciar cronómetro y puntuación a 0
+
+//@see https://developer.mozilla.org/en-US/docs/Web/API/setInterval#examples
+//Inicia el temporizador
+const timer = setInterval(countDown, 1000);
+
+// Inicia el contador de puntos
+increaseMarkerAndTime(0);

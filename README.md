@@ -1,7 +1,7 @@
 # Tetris
 
 ## Animaciones
-### setTimeout y clearTimeout 
+### setInterval y clearInterval
 - Cuenta atras 
     
 ### requestAnimationFrame y cancelAnimationFrame 
@@ -16,6 +16,7 @@
 
 ### Eventos de teclado o raton
  - el movimiento de los tetrominos
+ - Pulsar intro para guardar la puntuación con el nick
 
 
 ### Miscelanias
