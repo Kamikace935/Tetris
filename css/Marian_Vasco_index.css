@@ -1,0 +1,138 @@
+body {
+    background-color: #f8f9fa;
+}
+
+header {
+    background-color: #0E6251;
+    color: #ffffff;
+}
+
+h1 {
+    font-size: 30px;
+    font-weight: bold;
+    color: #FD6B2A;
+}
+
+.nav-tabs {
+    background-color: #0E6251;
+    margin-top: 10px;
+    border-bottom: none;
+}
+
+.nav-tabs .nav-link:hover {
+    background-color: #F9E79F;
+    color: #000000; /* Color del texto al pasar el cursor */
+}
+
+.nav-link {
+    color: #ffffff;
+}
+
+.nav-link.active {
+    background-color: #AF7AC5;
+}
+
+.tab-content {
+    background-color: #76D7C4;
+    padding: 20px;
+    border: 1px solid #AF7AC5;
+    border-top: none;
+}
+
+main {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #76D7C4;
+}
+
+footer {
+    background-color: #0E6251;
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+}
+
+.accordion-body {
+    background-color: #AF7AC5;
+    color: #ffffff;
+}
+
+.accordion-button {
+    background-color: #AF7AC5;
+    color: #ffffff;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #9B59B6;
+    color: #F9E79F;
+}
+
+.accordion-button:hover {
+    background-color: #884EA0;
+    color: #F9E79F;
+}
+
+.card {
+    background-color: #F7DC6F;
+}
+
+.btn-easy {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: #ffffff;
+}
+
+.btn-easy:hover {
+    background-color: #1e7e34;
+    border-color: #1e7e34;
+    color: #F9E79F;
+}
+
+.btn-medium {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #ffffff;
+}
+
+.btn-medium:hover {
+    background-color: #e0a800;
+    border-color: #e0a800;
+    color: #F9E79F;
+}
+
+.btn-hard {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #ffffff;
+}
+
+.btn-hard:hover {
+    background-color: #bd2130;
+    border-color: #bd2130;
+    color: #F9E79F;
+}
+
+table {
+    background-color: #AF7AC5;
+}
+
+th {
+    color: #ffffff;
+}
+
+.footer-icons {
+    margin-top: 20px;
+}
+
+.footer-icons a {
+    display: inline-block;
+    margin-right: 10px;
+    color: #ffffff;
+    font-size: 20px;
+}
+
+.accordion {
+    max-width: 800px;
+}

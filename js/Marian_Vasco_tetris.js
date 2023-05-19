@@ -1,17 +1,21 @@
+// @see https://tetris.fandom.com/wiki/Tetris_Guideline
+
 // Recoge el parámetro recibido con el get en la URL
+//@see https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
 const searchParams = new URLSearchParams(window.location.search);
 const difficulty = parseInt(searchParams.get("difficulty") || 0,10);
 
 // Contiene los parametros de las diferentes dificultades
 const difficulties = [
     [35, 15, 8],
-    [120, 90, 60]
+    [120, 90, 60],
+    ["easy", "medium", "hard"]
 ]
 
-// https://tetris.fandom.com/wiki/Tetris_Guideline
 let frames = difficulties[0][difficulty];
 let score = 0;
 let time = difficulties[1][difficulty];
+document.body.className = difficulties[2][difficulty];
 
 // Genera una nueva secuencia de tetrominó
 // @see https://tetris.fandom.com/wiki/Random_Generator
@@ -74,7 +78,6 @@ function isValidMove(matrix, cellRow, cellCol) {
             }
         }
     }
-
     return true;
 }
 
@@ -96,15 +99,13 @@ function placeTetromino() {
 
     let count = 0;
     // Comprueba las líneas que puede eliminar desde el fondo hasta la parte de arriba
-    for (let row = playfield.length - 1; row >= 0; ) {
+    for (let row = playfield.length - 1; row >= 0;) {
         if (playfield[row].every(cell => !!cell)) {
             // Elimina cada fila por encima de esta
             for (let r = row; r >= 0; r--) {
                 for (let c = 0; c < playfield[r].length; c++) {
                     playfield[r][c] = playfield[r-1][c];
                 }
-            //Método que pinta los puntos y otro que añada tiempo al cronómetro
-
             }
             count++;
         } else {
@@ -112,14 +113,12 @@ function placeTetromino() {
         }
     }
 
+    //Aumenta la puntuación y el tiempo restante
     increaseMarkerAndTime(count);
 
     //colocar variable para la siguiente ficha
     tetromino = getNextTetromino();
 }
-
-
-
 
 // Muestra la pantalla de final de juego
 // Mejorar implementación input text
@@ -170,7 +169,7 @@ function showGameOver() {
             let ranking = JSON.parse(localStorage.getItem('Ranking')) || [];
             ranking.push(getScore());
             localStorage.setItem('Ranking', JSON.stringify(ranking));
-            window.location.href = "index.html";
+            window.location.href = "Marian_Vasco_index.html";
         }
     })
 }
@@ -273,6 +272,7 @@ let tetromino = getNextTetromino();
 let rAF = null;  // Mantiene un seguimiento de los frames de animación para poder cancelarlo
 let gameOver = false;
 
+//@see https://tetris.fandom.com/wiki/Scoring
 // Aumenta los puntos y el tiempo restante por las líneas eliminadas
 function increaseMarkerAndTime(lines) {
     const points = [40,100,300,1200];

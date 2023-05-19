@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris Pablo Marian</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/Marian_Vasco_index.css">
+</head>
+<body>
+
+<header>
+    <nav>
+        <h1 class="text-center py-3">Tetris</h1>
+        <ul class="nav nav-tabs justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="https://tetris.fandom.com/wiki/Tetris_Guideline">Guideline</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="https://tetris.fandom.com/wiki/Random_Generator">Random Generator</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="https://tetris.fandom.com/wiki/SRS">SRS</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="https://tetris.fandom.com/wiki/Scoring">Scoring</a>
+            </li>
+
+        </ul>
+    </nav>
+</header>
+<main>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="rules-heading">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#rules-collapse" aria-expanded="true" aria-controls="rules-collapse">
+                                Rules
+                            </button>
+                        </h3>
+                        <div id="rules-collapse" class="accordion-collapse collapse" aria-labelledby="rules-heading" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                Pieces will start falling from the top of the playfield, the game is over if your
+                                pieces reach the top of the screen, you can only remove pieces from the screen by
+                                filling all the blank space in a line.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="control-heading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#control-collapse" aria-expanded="false" aria-controls="control-collapse">
+                                Controls
+                            </button>
+                        </h3>
+                        <div id="control-collapse" class="accordion-collapse collapse" aria-labelledby="control-heading" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p><i class="fas fa-arrow-up"></i> Rotate piece</p>
+                                        <p><i class="fas fa-arrow-left"></i> Move left</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p><i class="fas fa-arrow-right"></i> Move right</p>
+                                        <p><i class="fas fa-arrow-down"></i> Speed up piece</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="ranking-heading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ranking-collapse" aria-expanded="false" aria-controls="ranking-collapse">
+                                Ranking
+                            </button>
+                        </h3>
+                        <div id="ranking-collapse" class="accordion-collapse collapse show" aria-labelledby="ranking-heading" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Position</th>
+                                        <th>Nick</th>
+                                        <th>Score</th>
+                                        <th>Time left</th>
+                                        <th>Difficulty</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="leaderBoard">
+                                    <!-- Fill with leaderboard data -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <section>
+                    <article class="text-center">
+                        <div class="card p-4 d-inline-block">
+                            <div class="d-inline-flex">
+                                <h2 class="text-decoration-underline mb-4 bg-warning p-2 rounded">Choose Difficulty</h2>
+                            </div>
+                            <form action="Marian_Vasco_tetris.html" method="get">
+                                <div class="btn-group" role="group">
+                                    <button type="submit" value="0" name="difficulty" class="btn btn-easy">EASY</button>
+                                    <button type="submit" value="1" name="difficulty" class="btn btn-medium">MEDIUM</button>
+                                    <button type="submit" value="2" name="difficulty" class="btn btn-hard">HARD</button>
+                                </div>
+                            </form>
+                            <div class="text-center mt-4">
+                                <img alt="Homer usando tetris para guardar cosas" src="TetrisGif.gif">
+                            </div>
+                        </div>
+                    </article>
+                </section>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="footer-icons">
+        <a href="https://twitter.com/Kamikace935/" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://github.com/Kamikace935" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://www.instagram.com/kamikace935/" target="_blank"><i class="fab fa-instagram"></i></a>
+    </div>
+    <p>Pablo Marián Vasco | DA2D1E</p>
+</footer>
+
+<script src="js/Marian_Vasco_index.js"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
+
+

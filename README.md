@@ -9,7 +9,7 @@
 
 
 ### Promesas
-- then/catch - Promesa de la generación de un tetromino -
+- then/catch - Promesa de la generación de un tetromino
 
 ### localstorage
 - almacenaré la puntuación y una tabla con los 5 mejores
